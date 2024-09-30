@@ -128,6 +128,51 @@ class HashTable { // get O(1), set O(1), deleteKey O(1)
 
   delete(key) {
     // Your code here
+    let index = this.hashMod(key);
+    if (this.data[index] === null) return 'Key not found';
+
+    if (this.data[index].key === key) {
+      this.data[index] = this.data[index].next;
+      this.count--;
+      return;
+    }
+
+    // We need to find node then
+    let result = this.findNodeMinusOne(this.data, index, key);
+
+    if (typeof result === 'string') {
+      return result;
+    } else {
+      this.dequeue(result);
+    }
+
+  }
+
+  findNodeMinusOne(data, index, key) {
+    let currentNode = data[index];
+
+    while(currentNode.next !== null) {
+      if (currentNode.next.key === key) {
+        return currentNode;
+      }
+
+      currentNode = currentNode.next;
+    }
+
+    return (currentNode.key === key) ? currentNode : 'Key not found';
+  }
+
+  dequeue(node) {
+
+    if (node.next.next) {
+      let temp = node.next.next;
+      node.next = temp;
+    } else {
+      let temp = node.next;
+      node = temp;
+    }
+
+    this.count--;
   }
 }
 
