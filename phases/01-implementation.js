@@ -12,8 +12,10 @@ class HashTable { // get O(1), set O(1), deleteKey O(1)
     // Initialize your buckets here
     // Your code here
     this.count = 0;
+    this.length = 0;
     this.capacity = numBuckets;
     this.data = new Array(this.capacity).fill(null);
+    this.loadFactor = 0.7;
   }
 
   hash(key) { // Simple hash algorithm
@@ -31,65 +33,36 @@ class HashTable { // get O(1), set O(1), deleteKey O(1)
     return this.hash(key) % this.capacity;
   }
 
-
   insert(key, value) {
     // Your code here
+    if ((this.length / this.data.length) >= this.loadFactor) this.resize();
     let index = this.hashMod(key);
     let node = new KeyValuePair(key, value);
 
-    if (!this.data[index]) {
-      this.data[index] = node;
+    if (this.data[index] === null) {
+      this.enqueue(this.data, index, node);
       this.count++;
+      this.length++;
       return;
     }
 
-    // call searchNode
-    this.searchNode(index, node);
-  }
+    let result = this.searchNode(this.data, index, node.key);
 
-  searchNode(index, node) {
-    let currentNode = this.data[index];
-
-    while(currentNode) {
-      if (currentNode.key === node.key) {
-        currentNode.value = node.value;
-        return currentNode;
-      }
-
-      currentNode = currentNode.next;
-    }
-
-    this.enqueue(node, index);
-  }
-
-  enqueue(node, index) {
-    node.next = this.data[index];
-    this.data[index] = node;
-    this.count++;
-  }
-
-  read(key) {
-    // Your code here
-    let index = this.hashMod(key);
-
-    if (this.data[index] === null) return undefined;
-
-    if (this.data[index].key === key) {
-      let result = this.data[index].value;
-      return result;
+    if (!result) {
+      this.enqueue(this.data, index, node);
+      this.count++;
     } else {
-      let result = this.find(index, key);
-      return result;
+      result.value = node.value
     }
 
   }
 
-  find(index, key) {
-    let currentNode = this.data[index];
+  searchNode(data, index, key) {
+    let currentNode = data[index];
 
     while(currentNode) {
       if (currentNode.key === key) {
-        return currentNode.value;
+        return currentNode;
       }
 
       currentNode = currentNode.next;
@@ -98,16 +71,33 @@ class HashTable { // get O(1), set O(1), deleteKey O(1)
     return undefined;
   }
 
+  enqueue(data, index, node) {
+    node.next = data[index];
+    data[index] = node;
+  }
+
+  read(key) {
+    // Your code here
+    let index = this.hashMod(key);
+
+    if (this.data[index] === null) return undefined;
+    if (this.data[index].key === key) return this.data[index].value;
+
+    let result = this.searchNode(this.data, index, key);
+
+    if (!result) {
+      return result;
+    } else {
+      return result.value;
+    }
+
+  }
 
   resize() {
     // Your code here
-    // This is where the issue is.
-    // Each bucket is a linked list and we failed to recognize that.
-    this.capacity = this.capacity * 2;
+    this.capacity *= 2;
     let newData = new Array(this.capacity).fill(null);
 
-    // the bucket are filled with linked lists
-    // This makes this n^2 at worst
     for (let i = 0; i < this.data.length; i++) {
       let node = this.data[i];
 
@@ -115,7 +105,8 @@ class HashTable { // get O(1), set O(1), deleteKey O(1)
 
         while(node) {
           let index = this.hashMod(node.key);
-          this.reinsert(newData, index, node);
+          let newNode = new KeyValuePair(node.key, node.value);
+          this.reinsert(newData, index, newNode);
           node = node.next;
         }
 
@@ -128,16 +119,11 @@ class HashTable { // get O(1), set O(1), deleteKey O(1)
 
   reinsert(newData, index, node) {
     if (newData[index] === null) {
-      newData[index] = node;
+      this.enqueue(newData, index, node);
       return;
     }
 
-    this.enqueueV2(newData, index, node)
-  }
-
-  enqueueV2(newData, index, node) {
-    node.next = newData[index];
-    newData[index] = node;
+    this.enqueue(newData, index, node);
   }
 
   delete(key) {
