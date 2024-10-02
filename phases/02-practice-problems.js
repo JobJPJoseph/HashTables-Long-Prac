@@ -23,8 +23,10 @@ class MySet {
 
   hash(value) { // Simple hash algorithm
     let hashValue = 0;
-    for (let i = 0; i < value.length; i++) {
-      hashValue += value.charCodeAt(i);
+    let strValue = new String(value);
+
+    for (let i = 0; i < strValue.length; i++) {
+      hashValue += strValue.charCodeAt(i);
     }
 
     return hashValue;
@@ -208,6 +210,23 @@ function anagrams(str1, str2) {
 
 function commonElements(arr1, arr2) {
   // Your code here
+  const set = new MySet();
+  let result = [];
+
+  for (let i = 0; i < arr2.length; i++) {
+    let num = arr2[i];
+
+    set.insert(num);
+  }
+
+  for (let i = 0; i < arr1.length; i++) {
+    let num = arr1[i];
+
+    let value = set.read(num);
+    if (value !== undefined) result.push(value);
+  }
+
+  return result;
 }
 
 
