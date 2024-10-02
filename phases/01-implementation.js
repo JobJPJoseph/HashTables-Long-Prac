@@ -177,4 +177,4 @@ class HashTable { // get O(1), set O(1), deleteKey O(1)
 }
 
 
-module.exports = HashTable;
+module.exports = HashTable, KeyValuePair;
