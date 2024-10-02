@@ -9,7 +9,7 @@ class Value {
 
 }
 
-class Set {
+class MySet {
 
   constructor(numBuckets = 8) {
     // Initialize your buckets here
@@ -23,7 +23,6 @@ class Set {
 
   hash(value) { // Simple hash algorithm
     let hashValue = 0;
-
     for (let i = 0; i < value.length; i++) {
       hashValue += value.charCodeAt(i);
     }
@@ -39,7 +38,7 @@ class Set {
   insert(value) {
     // Your code here
     if ((this.length / this.data.length) >= this.loadFactor) this.resize();
-    let index = this.hashMod();
+    let index = this.hashMod(value);
     let node = new Value(value);
 
     if (this.data[index] === null) {
@@ -57,7 +56,8 @@ class Set {
       this.count++;
     } else {
       // We need to reject here
-      throw new Error('Key is already set');
+      // throw new Error('Key is already set');
+      return;
     }
 
   }
@@ -184,25 +184,25 @@ class Set {
 
 function anagrams(str1, str2) {
   // Your code here
-  const hashTable = new HashTable();
+  const set = new MySet();
 
   for (let i = 0; i < str1.length; i++) {
     let charOne = str1[i];
 
-    hashTable.insert(charOne);
+    set.insert(charOne);
   }
-  console.log(hashTable);
 
-  // for (let i = 0; i < str2.length; i++) {
-  //   let charTwo = str2[i];
+  const myEvery = function () {
 
-  //   let result = hashTable.read(charTwo);
+    for (let i = 0; i < this.length; i++) {
+      let char = this[i];
+      if (set.read(char) === undefined) return false;
+    }
 
-  //   console.log(result);
-  //   if (!result) return false;
-  // }
+    return true;
+  }
 
-  // return true;
+  return myEvery.call(str2);
 }
 
 
