@@ -52,14 +52,14 @@ class MySet {
 
     let result = this.searchNode(this.data, index, node.value);
 
-    // re-look at this
     if (!result) {
       this.enqueue(this.data, index, node);
       this.count++;
+      return;
     } else {
       // We need to reject here
       // throw new Error('Key is already set');
-      return;
+      return false;
     }
 
   }
@@ -232,11 +232,56 @@ function commonElements(arr1, arr2) {
 
 function duplicate(arr) {
   // Your code here
+  // const set = new MySet();
+
+  // for (let i = 0; i < arr.length; i++) {
+  //   let num = arr[i];
+
+  //   let result = set.insert(num);
+  //   if (result === false) return num;
+  // }
+
+  const set = new Set();
+
+  for (let i = 0; i < arr.length; i++) {
+    let num = arr[i];
+
+    if (set.has(num)) return num;
+
+    set.add(num);
+  }
+
+  return false;
 }
 
 
 function twoSum(nums, target) {
   // Your code here
+  // let set = new MySet();
+
+  // for (let i = 0; i < nums.length; i++) {
+  //   let num = nums[i];
+  //   let result = target - num;
+
+  //   if (set.read(result)) return true;
+
+  //   set.insert(num);
+  // }
+
+  // return false;
+
+  let set = new Set();
+
+  for (let i = 0; i < nums.length; i++) {
+    let num = nums[i];
+    let result = target - num;
+
+    if (set.has(result)) return true;
+
+    set.add(num);
+  }
+
+  return false;
 }
 
 
