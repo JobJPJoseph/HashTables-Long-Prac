@@ -57,6 +57,23 @@ class HashTable { // get O(1), set O(1), deleteKey O(1)
 
   }
 
+  has(key) {
+    let index = this.hashMod(key);
+
+    if (this.data[index] === null) {
+      return false;
+    }
+
+    let result = this.searchNode(this.data, index, key);
+
+    if (!result) {
+      return false;
+    } else {
+      return true;
+    }
+
+  }
+
   searchNode(data, index, key) {
     let currentNode = data[index];
 

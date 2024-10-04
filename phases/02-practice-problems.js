@@ -287,6 +287,33 @@ function twoSum(nums, target) {
 
 function wordPattern(pattern, strings) {
   // Your code here
+  // both pattern and strings are the same length
+  // let keySet = new MySet();
+  // let valSet = new MySet();
+
+  let keySet = new Set();
+  let valSet = new Set();
+
+  for (let i = 0; i < pattern.length; i++) {
+    let key = pattern[i];
+    let value = strings[i];
+
+    // if (hashtable.has(value)) {
+    //   if (hashtable.read(value) !== key) return false
+    // } else {
+    //   hashtable.insert(value, key);
+    // }
+
+    // false:
+      // The amount of keys is not equal to the amount of values
+
+    keySet.add(key);
+    valSet.add(value);
+
+    if (keySet.size !== valSet.size) return false;
+  }
+
+  return true
 }
 
 
