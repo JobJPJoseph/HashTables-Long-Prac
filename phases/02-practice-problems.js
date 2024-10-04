@@ -298,18 +298,16 @@ function wordPattern(pattern, strings) {
     let key = pattern[i];
     let value = strings[i];
 
-    // if (hashtable.has(value)) {
-    //   if (hashtable.read(value) !== key) return false
-    // } else {
-    //   hashtable.insert(value, key);
-    // }
-
     // false:
       // The amount of keys is not equal to the amount of values
+
+    // keySet.insert(key);
+    // valSet.insert(value);
 
     keySet.add(key);
     valSet.add(value);
 
+    // if (keySet.count !== valSet.count) return false;
     if (keySet.size !== valSet.size) return false;
   }
 
