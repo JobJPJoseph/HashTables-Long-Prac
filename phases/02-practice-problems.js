@@ -316,4 +316,4 @@ function wordPattern(pattern, strings) {
 
 
 
-module.exports = [anagrams, commonElements, duplicate, twoSum, wordPattern];
+module.exports = [anagrams, commonElements, duplicate, twoSum, wordPattern], MySet;
