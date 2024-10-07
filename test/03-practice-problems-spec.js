@@ -1,5 +1,3 @@
-// const { describe } = require('mocha');
-// const { describe, it } = require('mocha');
 const [ kth, newAlphabet, longestPalindrome, longestSubstr, maxSubarr,
     coinChange, climbingSteps
  ] = require('../phases/03-practice-problems');
@@ -17,9 +15,9 @@ describe('', function () {
             let frequency2 = 2;
             let frequency3 = 3;
 
-            expect(kth(str1, frequency1), 'to equal 1').to.equal(1);
-            expect(kth(str1, frequency2), 'to equal 2').to.equal(2);
-            expect(kth(str1, frequency3), 'to equal 3').to.equal(3);
+            expect(kth(str1, frequency1), 'to equal 1').to.equal('a');
+            expect(kth(str1, frequency2), 'to equal 2').to.equal('b');
+            expect(kth(str1, frequency3), 'to equal 3').to.equal('c');
         });
 
     });
@@ -32,14 +30,18 @@ describe('', function () {
             let str2 = 'leetcode';
             let str3 = 'leetcod';
 
-            expect(newAlphabet(str1, alpha)).to.be.true;
-            expect(newAlphabet(str2, alpha)).to.be.false;
-            expect(newAlphabet(str3, alpha)).to.be.true;
+            expect(newAlphabet(str1, alpha), 'dino should return true').to.be.true;
+            expect(newAlphabet(str2, alpha), 'leetcode should return false').to.be.false;
+            expect(newAlphabet(str3, alpha), 'leetcod should return true').to.be.true;
         });
 
         it('solve in O(m + n) time', function () {
+            let largeInput = generateLargeInput(1000000); // Generate large input for O(n)
 
-        });
+            // console.time('longestSubstr');  // Start timer
+            expect(longestSubstr(largeInput)).to.be.false;      // Run your function
+            // console.timeEnd('longestSubstr'); // End timer and print duration
+        }, 2000);
 
     });
 
@@ -48,12 +50,8 @@ describe('', function () {
         it('determine the length of the longest palindrone that can be built with those letters', function () {
             let str = "abccccdd";
 
-            expect(longestPalindrome(str)).to.equal('dccaccd');
-        });
-
-        it('solve in O(n) Time', function () {
-
-        });
+            expect(longestPalindrome(str)).to.equal(7);
+        }, 2000);
 
     });
 
@@ -63,13 +61,23 @@ describe('', function () {
             let str1 = 'abcabcbb';
             let str2 = 'bbbbb';
 
-            expect(longestSubstr(str1)).to.equal('abc');
-            expect(longestSubstr(str2)).to.equal('b');
+            expect(longestSubstr(str1)).to.equal(3);
+            expect(longestSubstr(str2)).to.equal(1);
         });
 
         it('Solve in O(n) Time', function () {
+            let target = 1000000;
+            let alpha = 'abcdefghijklmnopqrstuvwxyz';
+            let str = '';
 
-        });
+            for (let i = 0; i < target; i++) {
+                let index = Math.floor(Math.random() * alpha.length);
+                str += alpha[index];
+            }
+
+            let result = longestPalindrome(str);
+            expect(result > 1).to.be.true;
+        }, 4000);
 
     });
 
@@ -79,13 +87,9 @@ describe('', function () {
             let arr1 = [1,3,2,2,5,2,3,7];
             let arr2 = [1,1,1,1,3];
 
-            expect(maxSubarr(arr1)).to.equal(5);
-            expect(maxSubarr(arr2)).to.equal(4);
-        });
-
-        it('Solve this O(n) Time', function () {
-
-        });
+            expect(maxSubarr(arr1), 'arr1 should return 5').to.equal(5);
+            expect(maxSubarr(arr2), 'arr2 should return 4').to.equal(4);
+        }, 2000);
 
     });
 
@@ -93,21 +97,21 @@ describe('', function () {
 
         context('If amount of money cannot be made up by any combinations of coins', function () {
 
-            it('', function () {
+            it('should return -1 if amount cannot be made up', function () {
                 let coins = [5];
 
-                expect(coinChange(coins, 3)).to.equal(-1)
+                expect(coinChange(coins, 3), '3 cannot be made up with [5]').to.equal(-1)
             });
 
         });
 
         context('If amount of money can be made up by any combinations of coins', function () {
 
-            it('', function () {
+            it('should return the minimum number of coins needed', function () {
                 let coins = [1, 5, 10, 25];
 
-                expect(coinChange(coins, 11)).to.equal(2);
-                expect(coinChange(coins, 0)).to.equal(0);
+                expect(coinChange(coins, 11), '11 can be made up by 1 and 10').to.equal(2);
+                expect(coinChange(coins, 0), '0 amount should return 0 coins').to.equal(0);
             });
 
         });
@@ -121,7 +125,7 @@ describe('', function () {
             expect(climbingSteps(1)).to.equal(1);
             expect(climbingSteps(2)).to.equal(2);
             expect(climbingSteps(3)).to.equal(4);
-            expect(climbingSteps(4)).to.equal(6);
+            expect(climbingSteps(4)).to.equal(6); // subject to change
         });
 
     });
