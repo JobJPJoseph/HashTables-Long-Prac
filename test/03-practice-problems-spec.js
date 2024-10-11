@@ -10,14 +10,14 @@ describe('', function () {
     describe('Kth', function () {
 
         it('should return the kth most frequent character in the string', function () {
-            let str1 = 'aaabbc';
+            let str1 = 'cbbaaa';
             let frequency1 = 1;
             let frequency2 = 2;
             let frequency3 = 3;
 
-            expect(kth(str1, frequency1), 'to equal 1').to.equal('a');
-            expect(kth(str1, frequency2), 'to equal 2').to.equal('b');
-            expect(kth(str1, frequency3), 'to equal 3').to.equal('c');
+            expect(kth(str1, frequency1)).to.equal('a');
+            expect(kth(str1, frequency2)).to.equal('b');
+            expect(kth(str1, frequency3)).to.equal('c');
         });
 
     });

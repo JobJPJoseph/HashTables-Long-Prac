@@ -191,6 +191,67 @@ class HashTable { // get O(1), set O(1), deleteKey O(1)
 
     this.count--;
   }
+
+  keys() {
+    let result = [];
+
+    for (let i = 0; i < this.data.length; i++) {
+      let node = this.data[i];
+
+      if (node) {
+
+        while(node) {
+          result.push(node.key);
+          node = node.next;
+        }
+
+      }
+
+    }
+
+    return result;
+  }
+
+  values() {
+    let result = [];
+
+    for (let i = 0; i < this.data.length; i++) {
+      let node = this.data[i];
+
+      if (node) {
+
+        while(node) {
+          result.push(node.value);
+          node = node.next;
+        }
+
+      }
+
+    }
+
+    return result;
+  }
+
+  pairs() {
+    let result = [];
+
+    for (let i = 0; i < this.data.length; i++) {
+      let node = this.data[i];
+
+      if (node) {
+
+        while(node) {
+          result.push([node.key, node.value]);
+          node = node.next;
+        }
+
+      }
+
+    }
+
+    return result;
+  }
+
 }
 
 
