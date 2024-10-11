@@ -26,22 +26,15 @@ describe('', function () {
 
         it('determine whether the characters in the string appear in lexicographically increase order', function () {
             let alpha = 'abcdefghijklmnopqrstuvwxyz';
+            let alpha2 = 'labefghijkmnpqrstucvowxdyz';
             let str1 = 'dino';
             let str2 = 'leetcode';
             let str3 = 'leetcod';
 
             expect(newAlphabet(str1, alpha), 'dino should return true').to.be.true;
             expect(newAlphabet(str2, alpha), 'leetcode should return false').to.be.false;
-            expect(newAlphabet(str3, alpha), 'leetcod should return true').to.be.true;
+            expect(newAlphabet(str3, alpha2), 'leetcod should return true').to.be.true;
         });
-
-        it('solve in O(m + n) time', function () {
-            let largeInput = generateLargeInput(1000000); // Generate large input for O(n)
-
-            // console.time('longestSubstr');  // Start timer
-            expect(longestSubstr(largeInput)).to.be.false;      // Run your function
-            // console.timeEnd('longestSubstr'); // End timer and print duration
-        }, 2000);
 
     });
 

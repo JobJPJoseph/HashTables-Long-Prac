@@ -36,8 +36,23 @@ function sort(arr, index1, index2) {
     [ arr[index1], arr[index2] ] = [ arr[index2], arr[index1] ];
 }
 
-function newAlphabet() {
+function newAlphabet(str, alpha) {
+    let hashTable = new HashTable();
 
+    for (let i = 0; i < alpha.length; i++) {
+        let char = alpha[i];
+
+        hashTable.insert(char, i);
+    }
+
+    for (let j = 0; j < str.length - 1; j++) {
+        let val1 = hashTable.read(str[j]);
+        let val2 = hashTable.read(str[j + 1]);
+
+        if (val1 > val2) return false;
+    }
+
+    return true;
 }
 
 function longestPalindrome() {
