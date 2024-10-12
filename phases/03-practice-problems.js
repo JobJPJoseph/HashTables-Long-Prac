@@ -76,8 +76,21 @@ function longestSubstr(str) {
     return result.length;
 }
 
-function maxSubarr() {
+function maxSubarr(arr)  {
+    let hashTable = new HashTable();
 
+    for (let i = 0; i < arr.length - 1; i++) {
+        let num1 = arr[i];
+        let num2 = arr[i + 1];
+
+        if ( ((num1 + 1) === num2) || ((num1 - 1) === num2 || (num1 === num2)) ) {
+            hashTable.insert(`${i}`, num1);
+            hashTable.insert(`${i + 1}`, num2);
+        }
+
+    }
+
+    return hashTable.values().length;
 }
 
 function coinChange() {
