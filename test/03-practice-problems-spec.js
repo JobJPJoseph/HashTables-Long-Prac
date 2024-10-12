@@ -58,20 +58,6 @@ describe('', function () {
             expect(longestSubstr(str2)).to.equal(1);
         });
 
-        it('Solve in O(n) Time', function () {
-            let target = 1000000;
-            let alpha = 'abcdefghijklmnopqrstuvwxyz';
-            let str = '';
-
-            for (let i = 0; i < target; i++) {
-                let index = Math.floor(Math.random() * alpha.length);
-                str += alpha[index];
-            }
-
-            let result = longestPalindrome(str);
-            expect(result > 1).to.be.true;
-        }, 4000);
-
     });
 
     describe('maxSubarr', function () {

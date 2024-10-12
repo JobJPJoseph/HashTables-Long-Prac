@@ -1,5 +1,5 @@
 const HashTable = require('./01-implementation');
-const MySet = require('./02-practice-problems');
+const MySet = require('./01-implementation-set');
 
 function kth(str, frequency) {
     const hashTable = new HashTable();
@@ -55,12 +55,25 @@ function newAlphabet(str, alpha) {
     return true;
 }
 
-function longestPalindrome() {
+function longestPalindrome(str) {
 
 }
 
-function longestSubstr() {
+function longestSubstr(str) {
+    let set = new MySet();
+    let result = "";
 
+    for (let i = 0; i < str.length; i++) {
+        let letter = str[i];
+
+        if (!(set.has(letter))) {
+            set.insert(letter);
+            result += letter;
+        }
+
+    }
+
+    return result.length;
 }
 
 function maxSubarr() {
