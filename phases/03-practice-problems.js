@@ -93,8 +93,49 @@ function maxSubarr(arr)  {
     return hashTable.values().length;
 }
 
-function coinChange() {
+function coinChange(coins, target) {
+    if (target <= 0) return 0;
 
+    const hashTable = new HashTable();
+
+    let coinRecurse = function (coins, permutation, sums) {
+        let index = 0;
+
+        if (sums === target) {
+            hashTable.insert(String(permutation), permutation.length);
+            return;
+        }
+
+        if (sums < target) {
+            let sum = sums;
+            sum += coins[index];
+            let copiedPermutation = permutation.slice(0);
+            copiedPermutation.push(coins[index]);
+            coinRecurse(coins, copiedPermutation, sum);
+            index++;
+        }
+
+        if (sums > target) return;
+
+        while (index < coins.length) {
+            let sum = sums;
+            sum += coins[index];
+            let copiedPermutation = permutation.slice(0);
+            copiedPermutation.push(coins[index]);
+            coinRecurse(coins.slice(index), copiedPermutation, sum);
+            index++;
+        }
+
+        return;
+    }
+
+    coinRecurse(coins, [], 0);
+
+    if (hashTable.length === 0) return -1;
+
+    let smallestPermutation = Math.min(...hashTable.values());
+
+    return smallestPermutation;
 }
 
 function climbingSteps() {
