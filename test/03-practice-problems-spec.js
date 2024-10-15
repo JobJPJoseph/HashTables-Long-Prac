@@ -104,7 +104,7 @@ describe('', function () {
             expect(climbingSteps(1)).to.equal(1);
             expect(climbingSteps(2)).to.equal(2);
             expect(climbingSteps(3)).to.equal(4);
-            expect(climbingSteps(4)).to.equal(6); // subject to change
+            expect(climbingSteps(4)).to.equal(7);
         });
 
     });

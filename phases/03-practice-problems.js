@@ -138,8 +138,49 @@ function coinChange(coins, target) {
     return smallestPermutation;
 }
 
-function climbingSteps() {
+function climbingSteps(target) {
+    if (target <= 0) return 1;
+    const set = new MySet();
+    let steps = [];
 
+    for (let i = 1; i <= target; i++) {
+        steps.push(i);
+    }
+
+    const findPermutations = function (sums, permutation, steps) {
+
+        if (sums === target) {
+            set.insert(String(permutation));
+            return;
+        }
+
+        if (sums > target) return;
+
+        let index = 0;
+
+        while(index < steps.length) {
+            let num = sums;
+
+            let temp;
+            if (index === 3) {
+                temp = 2;
+            } else {
+                temp = index;
+            }
+
+            num += steps[temp];
+            let copiedPermutation = permutation.slice(0);
+            copiedPermutation.push(steps[temp]);
+            findPermutations(num, copiedPermutation, steps);
+            index++;
+        }
+
+        return;
+    }
+
+    findPermutations(0, [], steps);
+
+    return set.count;
 }
 
 module.exports = [kth, newAlphabet, longestPalindrome, longestSubstr,
