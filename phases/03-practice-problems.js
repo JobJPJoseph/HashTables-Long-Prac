@@ -56,7 +56,39 @@ function newAlphabet(str, alpha) {
 }
 
 function longestPalindrome(str) {
+    // I think we need keep track of the amount
+    // of chars. We can start from there
+    const hashTable = new HashTable();
+    let addIn = false;
+    let sums = 0;
 
+    for (let i = 0; i < str.length; i++) {
+        let char = str[i]
+
+        if (hashTable.has(char)) {
+            hashTable.insert(char, (hashTable.read(char) + 1));
+        } else {
+            hashTable.insert(char, 1);
+        }
+
+    }
+
+    for (let i = 0; i < hashTable.data.length; i++) {
+        let node = hashTable.data[i];
+
+        if (node) {
+            if (node.value % 2 === 0) {
+                sums += node.value;
+            } else {
+                if (addIn === false) {
+                    sums += 1;
+                    addIn = true;
+                }
+             }
+        }
+    }
+
+    return sums;
 }
 
 function longestSubstr(str) {
